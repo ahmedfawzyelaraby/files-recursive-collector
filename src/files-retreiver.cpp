@@ -1,7 +1,5 @@
 #include "files-retreiver.h"
 
-#include <iostream>
-
 std::vector<boost::filesystem::path> files_retreiver::getAllFilesWithSpecificExtensionRecursivelyInADirectory(
                           const std::string directory_path, const std::string search_extension) {
   boost::filesystem::path boost_directory_path(directory_path);
