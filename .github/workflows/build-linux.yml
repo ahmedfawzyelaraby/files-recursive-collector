@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the dependencies debian docker image
+      run: docker build . --file Dockerfile --tag files-recursive-collector-build
+    - name: Build the files recursive collector
+      run: docker run -v $(pwd):/files-recursive-collector files-recursive-collector-build ./build.sh
+    - name: Aritfact Preparation
+      uses: actions/upload-artifact@v1
+      with:
+        name: files-recursive-collector
+        path: ./build/files-recursive-collector
